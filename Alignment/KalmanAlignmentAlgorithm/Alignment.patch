@@ -1,0 +1,23 @@
+Index: Alignment/KalmanAlignmentAlgorithm/interface/KalmanAlignmentSetup.h
+===================================================================
+RCS file: /local/reps/CMSSW/CMSSW/Alignment/KalmanAlignmentAlgorithm/interface/KalmanAlignmentSetup.h,v
+retrieving revision 1.3
+diff -u -r1.3 KalmanAlignmentSetup.h
+--- Alignment/KalmanAlignmentAlgorithm/interface/KalmanAlignmentSetup.h	6 Jan 2011 17:53:22 -0000	1.3
++++ Alignment/KalmanAlignmentAlgorithm/interface/KalmanAlignmentSetup.h	19 Mar 2013 17:01:43 -0000
+@@ -70,13 +70,13 @@
+ 
+   std::string theId;
+ 
+-  TrajectoryFitter* theFitter;
++  const TrajectoryFitter* theFitter;
+   Propagator* thePropagator;
+   std::vector< SubDetId > theTrackingSubDetIds;
+   unsigned int theMinTrackingHits;
+   SortingDirection theSortingDir;
+ 
+-  TrajectoryFitter* theExternalFitter;
++  const TrajectoryFitter* theExternalFitter;
+   Propagator* theExternalPropagator;
+   std::vector< SubDetId > theExternalTrackingSubDetIds;
+   unsigned int theMinExternalHits;

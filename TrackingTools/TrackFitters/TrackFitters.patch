@@ -1,0 +1,33 @@
+? TrackingTools/TrackFitters/python/__init__.py
+Index: TrackingTools/TrackFitters/interface/KFTrajectoryFitter.h
+===================================================================
+RCS file: /local/reps/CMSSW/CMSSW/TrackingTools/TrackFitters/interface/KFTrajectoryFitter.h,v
+retrieving revision 1.15
+diff -u -r1.15 KFTrajectoryFitter.h
+--- TrackingTools/TrackFitters/interface/KFTrajectoryFitter.h	1 Sep 2012 11:08:33 -0000	1.15
++++ TrackingTools/TrackFitters/interface/KFTrajectoryFitter.h	19 Mar 2013 17:11:03 -0000
+@@ -82,7 +82,7 @@
+   const TrajectoryStateUpdator* updator() const {return theUpdator;}
+   const MeasurementEstimator* estimator() const {return theEstimator;}
+   
+-  virtual KFTrajectoryFitter* clone() const
++  virtual const KFTrajectoryFitter* clone() const
+   {
+     return owner ? 
+       new KFTrajectoryFitter(*thePropagator,*theUpdator,*theEstimator,minHits_,theGeometry) :
+Index: TrackingTools/TrackFitters/interface/TrajectoryFitter.h
+===================================================================
+RCS file: /local/reps/CMSSW/CMSSW/TrackingTools/TrackFitters/interface/TrajectoryFitter.h,v
+retrieving revision 1.3
+diff -u -r1.3 TrajectoryFitter.h
+--- TrackingTools/TrackFitters/interface/TrajectoryFitter.h	1 Sep 2012 11:08:33 -0000	1.3
++++ TrackingTools/TrackFitters/interface/TrajectoryFitter.h	19 Mar 2013 17:11:03 -0000
+@@ -23,7 +23,7 @@
+   typedef Trajectory::RecHitContainer      RecHitContainer;
+ 
+   virtual ~TrajectoryFitter() {}
+-  virtual TrajectoryFitter* clone() const = 0;
++  virtual const TrajectoryFitter* clone() const = 0;
+ 
+   // new interface return one trajectory: if fit fails trajectory is invalid...
+   virtual Trajectory fitOne(const Trajectory& traj, fitType type=standard) const=0;
