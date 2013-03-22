@@ -1,0 +1,36 @@
+--- ./CMSSW_CVS/TrackingTools/GsfTracking/src/GsfPropagatorWithMaterial.cc	2010-12-07 08:56:03.000000000 -0500
++++ GsfPropagatorWithMaterial.cc	2013-03-12 13:33:17.000000000 -0400
+@@ -6,6 +6,11 @@
+ #include "FWCore/MessageLogger/interface/MessageLogger.h"
+ #include "FWCore/Utilities/interface/Exception.h"
+ 
++#include <atomic>
++namespace {
++    const int N=0;
++    std::atomic<int> counter=ATOMIC_VAR_INIT(N);
++}
+ GsfPropagatorWithMaterial::GsfPropagatorWithMaterial (const Propagator& aPropagator,
+ 						      const GsfMaterialEffectsUpdator& aMEUpdator) :
+   Propagator(aPropagator.propagationDirection()),
+@@ -97,8 +102,8 @@
+ std::pair<TrajectoryStateOnSurface,double> 
+ GsfPropagatorWithMaterial::propagateWithPath (const FreeTrajectoryState& fts, 
+ 					      const Plane& plane) const {
+-  static int nWarn(0);
+-  if ( nWarn++<5 )
++  std::atomic_fetch_add(&counter, 1);
++  if (counter < 5)
+     edm::LogInfo("GsfPropagatorWithMaterial") 
+       << "GsfPropagatorWithMaterial used from FTS: input state might have been collapsed!";
+   TsosWP propStateWP = theGeometricalPropagator->propagateWithPath(fts,plane);
+@@ -112,8 +117,8 @@
+ std::pair<TrajectoryStateOnSurface,double> 
+ GsfPropagatorWithMaterial::propagateWithPath (const FreeTrajectoryState& fts, 
+ 					      const Cylinder& cylinder) const {
+-  static int nWarn(0);
+-  if ( nWarn++<5 )
++  std::atomic_fetch_add(&counter, 1);
++  if (counter < 5)
+     edm::LogInfo("GsfPropagatorWithMaterial") 
+       << "GsfPropagatorWithMaterial used from FTS: input state might have been collapsed!";
+   TsosWP propStateWP = theGeometricalPropagator->propagateWithPath(fts,cylinder);

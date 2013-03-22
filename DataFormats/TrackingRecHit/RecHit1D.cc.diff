@@ -1,0 +1,28 @@
+--- ./CMSSW_CVS/DataFormats/TrackingRecHit/src/RecHit1D.cc	2007-08-10 18:24:54.000000000 -0400
++++ RecHit1D.cc	2013-03-14 13:37:24.000000000 -0400
+@@ -39,20 +39,9 @@
+ }
+ 
+ 
+-
+-// Initialize the projection matrix
+-void RecHit1D::initialize() const {
+-  theProjectionMatrix = AlgebraicMatrix( 1, 5, 0);
+-  theProjectionMatrix[0][3] = 1;
+-  
+-  isInitialized = true;
++AlgebraicMatrix RecHit1D::projectionMatrix() const
++{
++  AlgebraicMatrix m( 1, 5, 0);
++  m[0][3] = 1;
++  return m;
+ }
+-
+-
+-
+-bool RecHit1D::isInitialized(false);
+-
+-
+-
+-AlgebraicMatrix RecHit1D::theProjectionMatrix;
+-

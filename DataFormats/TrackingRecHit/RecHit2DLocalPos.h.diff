@@ -1,0 +1,30 @@
+--- ./CMSSW_CVS/DataFormats/TrackingRecHit/interface/RecHit2DLocalPos.h	2012-12-23 13:52:56.000000000 -0500
++++ RecHit2DLocalPos.h	2013-03-14 13:40:33.000000000 -0400
+@@ -21,10 +21,7 @@
+ 
+   virtual AlgebraicSymMatrix parametersError() const;
+ 
+-  virtual AlgebraicMatrix projectionMatrix() const {
+-    if ( !isInitialized) initialize();
+-    return theProjectionMatrix;
+-  }
++  virtual AlgebraicMatrix projectionMatrix() const;
+ 
+   virtual int dimension() const { return 2;}
+ 
+@@ -35,15 +32,6 @@
+   virtual std::vector<const TrackingRecHit*> recHits() const;
+ 
+   virtual std::vector<TrackingRecHit*> recHits();
+-
+-private:
+-
+-  static bool isInitialized;
+-
+-  static AlgebraicMatrix theProjectionMatrix;
+-
+-  void initialize() const;
+-
+ };
+ 
+ #endif

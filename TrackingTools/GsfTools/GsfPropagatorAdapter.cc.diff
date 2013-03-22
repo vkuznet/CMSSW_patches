@@ -1,0 +1,37 @@
+--- ./CMSSW_CVS/TrackingTools/GsfTools/src/GsfPropagatorAdapter.cc	2010-12-07 08:56:02.000000000 -0500
++++ GsfPropagatorAdapter.cc	2013-03-12 13:28:09.000000000 -0400
+@@ -3,6 +3,12 @@
+ #include "TrackingTools/GsfTools/src/MultiStatePropagation.h"
+ #include "FWCore/MessageLogger/interface/MessageLogger.h"
+ 
++#include <atomic>
++namespace {
++    const int N=0;
++    std::atomic<int> counter=ATOMIC_VAR_INIT(N);
++}
++
+ GsfPropagatorAdapter::GsfPropagatorAdapter (const Propagator& aPropagator) :
+   Propagator(aPropagator.propagationDirection()),
+   thePropagator(aPropagator.clone()) {}
+@@ -25,8 +31,8 @@
+ GsfPropagatorAdapter::propagateWithPath (const FreeTrajectoryState& fts, 
+ 					 const Plane& plane) const {
+   /// use counter in MessageLogger?
+-  static int nWarn(0);
+-  if ( nWarn++<5 )
++  std::atomic_fetch_add(&counter, 1);
++  if  (counter < 5)
+     edm::LogInfo("GsfPropagatorAdapter") << "GsfPropagator used from FTS = single state mode!";
+   return thePropagator->propagateWithPath(fts,plane);
+ }
+@@ -35,8 +41,8 @@
+ GsfPropagatorAdapter::propagateWithPath (const FreeTrajectoryState& fts, 
+ 					 const Cylinder& cylinder) const {
+   /// use counter in MessageLogger?
+-  static int nWarn(0);
+-  if ( nWarn++<5 )
++  std::atomic_fetch_add(&counter, 1);
++  if  (counter < 5)
+     edm::LogInfo("GsfPropagatorAdapter") << "GsfPropagator used from FTS = single state mode!";
+   return thePropagator->propagateWithPath(fts,cylinder);
+ }
